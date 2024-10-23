@@ -1,0 +1,37 @@
+{
+  "name": "api.localstorage.qa.tests",
+  "version": "1.0.0",
+  "description": "API criada para subir no seu localStorage, permitindo realizar cruds sem dificuldades, com alguns endpoints complexos e simples para testar sua validação, frequentemente pode usar o git pull para baixar novos métodos.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesonBatista/api.localstorage.qa.tests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesonBatista/api.localstorage.qa.tests/issues"
+  },
+  "homepage": "https://github.com/JamesonBatista/api.localstorage.qa.tests#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.21.1",
+    "express-validator": "^7.2.0",
+    "firebase-admin": "^12.1.1",
+    "fs": "^0.0.1-security",
+    "joi": "^17.13.1",
+    "js-yaml": "^4.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "node-localstorage": "^3.0.5",
+    "nodemailer": "^6.9.13",
+    "nodemon": "^3.1.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "vercel": "^34.1.7"
+  }
+}

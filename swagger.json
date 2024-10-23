@@ -1,0 +1,1497 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API for Testing",
+    "description": "API desenvolvida por Jam Batista para treinamentos de QAs.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local development server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Login",
+      "description": "Login simples e login hard validation",
+      "externalDocs": {
+        "description": "Swagger.io",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Generate new Bearer token",
+        "description": "Endpoint to generate a new token with default credentials",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "default": "admin",
+                    "description": "Nome de usuário para autenticação"
+                  },
+                  "password": {
+                    "type": "string",
+                    "default": "admin",
+                    "description": "Senha para autenticação"
+                  }
+                },
+                "required": ["username", "password"],
+                "example": {
+                  "username": "admin",
+                  "password": "admin"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Authentication successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username or password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid credentials provided."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Authentication failed."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login-hard": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Generate new Bearer token",
+        "description": "Endpoint to generate a new token with default credentials",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "default": "admin",
+                    "description": "Nome de usuário para autenticação"
+                  },
+                  "password": {
+                    "type": "string",
+                    "default": "admin",
+                    "description": "Senha para autenticação"
+                  }
+                },
+                "required": ["username", "password"],
+                "example": {
+                  "username": "admin",
+                  "password": "admin"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Authentication successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username or password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Invalid credentials provided."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Authentication failed."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "description": "Returns a list of all users",
+        "responses": {
+          "200": {
+            "description": "List of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Create a new user",
+        "description": "Creates a new user with any provided data",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "Any data can be sent to create a user",
+                "example": {
+                  "name": "John",
+                  "last_name": "Doe",
+                  "email": "john.doe@example.com",
+                  "age": 30,
+                  "address": "123 Main St"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get a user by ID",
+        "description": "Returns a single user by their ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update a user by ID",
+        "description": "Updates an existing user by their ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUser"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "summary": "Delete a user by ID",
+        "description": "Deletes a user by their ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/projects": {
+      "get": {
+        "tags": ["Projects"],
+        "summary": "Get all projects",
+        "description": "Retrieve a list of all projects",
+        "responses": {
+          "200": {
+            "description": "List of projects",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Project"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Projects"],
+        "summary": "Create a new project",
+        "description": "Creates a new project with the provided information",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Project created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/projects/{id}": {
+      "get": {
+        "tags": ["Projects"],
+        "summary": "Get project by ID",
+        "description": "Retrieve a specific project by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Projects"],
+        "summary": "Update project by ID",
+        "description": "Updates a project by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Project updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Projects"],
+        "summary": "Delete project by ID",
+        "description": "Deletes a project by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project deleted"
+          },
+          "404": {
+            "description": "Project not found"
+          }
+        }
+      }
+    },
+    "/projects/{projectId}/member": {
+      "post": {
+        "tags": ["Projects"],
+        "summary": "Add a member to a project",
+        "description": "Adds a new member to a project",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewMember"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Member added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Project"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/projects/{projectId}/member/{memberId}": {
+      "delete": {
+        "tags": ["Projects"],
+        "summary": "Remove a member from a project",
+        "description": "Removes a member from a project",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "memberId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Member removed"
+          },
+          "404": {
+            "description": "Project or member not found"
+          }
+        }
+      }
+    },
+    "/events": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "Get all events",
+        "description": "Retrieve a list of all events",
+        "responses": {
+          "200": {
+            "description": "List of events",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Event"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Events"],
+        "summary": "Create a new event",
+        "description": "Creates a new event with the provided information",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Event created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/events/{id}": {
+      "get": {
+        "tags": ["Events"],
+        "summary": "Get event by ID",
+        "description": "Retrieve a specific event by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event not found"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Events"],
+        "summary": "Update event by ID",
+        "description": "Updates an event by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Event not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Events"],
+        "summary": "Delete event by ID",
+        "description": "Deletes an event by its ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Event deleted"
+          },
+          "404": {
+            "description": "Event not found"
+          }
+        }
+      }
+    },
+    "/events/{eventId}/participants": {
+      "post": {
+        "tags": ["Events"],
+        "summary": "Add a participant to an event",
+        "description": "Adds a new participant to an event",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewParticipant"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Participant added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Event"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/events/{eventId}/participants/{participantId}": {
+      "delete": {
+        "tags": ["Events"],
+        "summary": "Remove a participant from an event",
+        "description": "Removes a participant from an event",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "participantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Participant removed"
+          },
+          "404": {
+            "description": "Event or participant not found"
+          }
+        }
+      }
+    },
+    "/approval": {
+      "get": {
+        "tags": ["Approval"],
+        "summary": "Get all approvals",
+        "description": "Retrieve a list of all user approvals.",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserApproval"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Approval"],
+        "summary": "Create a new approval",
+        "description": "Creates a new user approval with PENDING status.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUserApproval"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User approval created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApprovalResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/approval/{id}": {
+      "put": {
+        "tags": ["Approval"],
+        "summary": "Update user approval by ID",
+        "description": "Updates an existing user approval.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewUserApproval"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApprovalResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Approval"],
+        "summary": "Delete user approval by ID",
+        "description": "Deletes a user approval.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApprovalResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/approval/approve-by-cpf": {
+      "post": {
+        "tags": ["Approval"],
+        "summary": "Approve user by CPF",
+        "description": "Approve a user by checking their CPF and approval code.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveByCpf"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User approved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserApprovalResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found or approval code missing"
+          }
+        }
+      }
+    },
+	"/validation/level1": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level2": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level3": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level4": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level5": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level6": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level7": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level8": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level9": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	},
+	"/validation/level10": {
+		"get": {
+		  "tags": ["challengers"],
+		  "summary": "Chellengers JSON",
+		  "description": "validation",
+		  "responses": {
+			"200": {
+			  "description": "List of approvals",
+			  "content": {
+				"application/json": {
+	
+				}
+			  }
+			},
+			"404": {
+			  "description": "No user approval data found"
+			}
+		  }
+		}
+	}
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "John"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          }
+        }
+      },
+      "NewUser": {
+        "type": "object",
+        "description": "Any data can be sent",
+        "example": {
+          "name": "John",
+          "last_name": "Doe",
+          "email": "john.doe@example.com",
+          "age": 30,
+          "address": "123 Main St"
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "TV Smart 4K"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Samsung"
+          },
+          "price": {
+            "type": "number",
+            "example": 4500
+          }
+        }
+      },
+      "NewProduct": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "TV Smart 4K"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Samsung"
+          },
+          "price": {
+            "type": "number",
+            "example": 4500
+          }
+        },
+        "required": ["name", "brand", "price"]
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Website Redesign"
+          },
+          "leader": {
+            "type": "string",
+            "example": "Alice Johnson"
+          },
+          "description": {
+            "type": "string",
+            "example": "A complete redesign of the company website to improve user experience."
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2024-01-01"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2024-06-01"
+          },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id_member": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "member_name": {
+                  "type": "string",
+                  "example": "John Doe"
+                },
+                "office": {
+                  "type": "string",
+                  "example": "Frontend Developer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewProject": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Website Redesign"
+          },
+          "leader": {
+            "type": "string",
+            "example": "Alice Johnson"
+          },
+          "description": {
+            "type": "string",
+            "example": "A complete redesign of the company website to improve user experience."
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2024-06-01"
+          }
+        },
+        "required": ["name", "leader", "description", "endDate"]
+      },
+      "NewMember": {
+        "type": "object",
+        "properties": {
+          "member_name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "office": {
+            "type": "string",
+            "example": "Frontend Developer"
+          }
+        },
+        "required": ["member_name", "office"]
+      },
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Tech Conference 2024"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "2024-03-15"
+          },
+          "location": {
+            "type": "string",
+            "example": "New York"
+          },
+          "capacity": {
+            "type": "integer",
+            "example": 50
+          },
+          "participants": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Alice Johnson"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "alice.johnson@example.com"
+                },
+                "age": {
+                  "type": "integer",
+                  "example": 25
+                }
+              }
+            }
+          }
+        }
+      },
+      "NewEvent": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Tech Conference 2024"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "2024-03-15"
+          },
+          "location": {
+            "type": "string",
+            "example": "New York"
+          },
+          "capacity": {
+            "type": "integer",
+            "example": 50
+          }
+        },
+        "required": ["name", "date", "location", "capacity"]
+      },
+      "NewParticipant": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Alice Johnson"
+          },
+          "email": {
+            "type": "string",
+            "example": "alice.johnson@example.com"
+          },
+          "age": {
+            "type": "integer",
+            "example": 25
+          }
+        },
+        "required": ["name", "age"]
+      },
+      "UserApproval": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "12345678901"
+          },
+          "status": {
+            "type": "string",
+            "example": "PENDING"
+          }
+        }
+      },
+      "NewUserApproval": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "12345678901"
+          }
+        },
+        "required": ["name", "email", "cpf"]
+      },
+      "UserApprovalResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "12345678901"
+          },
+          "status": {
+            "type": "string",
+            "example": "PENDING"
+          }
+        }
+      },
+      "ApproveByCode": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "ABC1234"
+          }
+        },
+        "required": ["code"]
+      },
+      "ApproveByCpf": {
+        "type": "object",
+        "properties": {
+          "cpf": {
+            "type": "string",
+            "example": "12345678901"
+          }
+        },
+        "required": ["cpf"]
+      }
+    }
+  }
+}
