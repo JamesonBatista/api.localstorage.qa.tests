@@ -91,6 +91,25 @@ app.post("/login", (req, res) => {
   }
 });
 
+app.post("/login-headers", (req, res) => {
+  const { username, password } = req.body;
+  
+if(!req.headers['authorization'] || !req.header['authorization']){
+  return res.status(401).json({message: "not authorization"})
+}
+  // Simulação de validação de usuário
+  const user = users.find(
+    (u) => u.username === username && u.password === password
+  );
+
+  if (user) {
+    const token = `Bearer ${generateToken(user)}`;
+    res.status(201).json({ token });
+  } else {
+    res.status(401).send({ error: "Credenciais inválidas" });
+  }
+});
+
 // token hard
 app.post("/login-hard", (req, res) => {
   const { username, password } = req.body;

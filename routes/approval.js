@@ -33,7 +33,7 @@ router.post(
 // Route to approve a user
 router.post(
   "/approve",
-  [body("code").notEmpty().withMessage("Approval code is required")],
+  [body("code").notEmpty().withMessage("Approval code is required, create new approval in post /approval")],
   approveUser
 );
 

@@ -36,7 +36,7 @@ export const createEvent = (req, res) => {
   
   const eventExists = events.some(e => e.name.trim().toLowerCase() === name.trim().toLowerCase());
   if (eventExists) {
-    return res.status(400).json({ message: `Event with the name "${name}" already exists` });
+    return res.status(400).json({ message: `Event with the name ${name} already exists` });
   }
 
   const newEvent = {

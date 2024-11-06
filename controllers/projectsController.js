@@ -40,7 +40,7 @@ export const createProject = (req, res) => {
   if (projectExists) {
     return res
       .status(400)
-      .json({ message: `A project named "${name}" already exists` });
+      .json({ message: `A project named ${name} already exists` });
   }
 
   const startDate = new Date().toISOString().split("T")[0];
@@ -121,7 +121,7 @@ export const deleteProject = (req, res) => {
   saveData("projects", projects);
 
   res.status(200).json({
-    message: `Project "${deletedProject}" deleted successfully!`,
+    message: `Project ${deletedProject} deleted successfully!`,
   });
 };
 

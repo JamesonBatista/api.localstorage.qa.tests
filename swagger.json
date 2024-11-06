@@ -106,6 +106,79 @@
         }
       }
     },
+    "/login-headers": {
+      "post": {
+        "summary": "Login usando headers",
+        "description": "Realiza o login e valida se o header Authorization está presente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "admin"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "admin"
+                  }
+                },
+                "required": ["username", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Login bem-sucedido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciais inválidas ou header de autorização ausente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Credenciais inválidas"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Token de autorização no formato Bearer",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "Bearer <seu_token_aqui>"
+            }
+          }
+        ]
+      }
+    },
     "/login-hard": {
       "post": {
         "tags": ["Login"],
@@ -951,206 +1024,186 @@
         }
       }
     },
-	"/validation/level1": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level2": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level3": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level4": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level5": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level6": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level7": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level8": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level9": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	},
-	"/validation/level10": {
-		"get": {
-		  "tags": ["challengers"],
-		  "summary": "Chellengers JSON",
-		  "description": "validation",
-		  "responses": {
-			"200": {
-			  "description": "List of approvals",
-			  "content": {
-				"application/json": {
-	
-				}
-			  }
-			},
-			"404": {
-			  "description": "No user approval data found"
-			}
-		  }
-		}
-	}
+    "/validation/level1": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level2": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level3": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level4": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level5": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level6": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level7": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level8": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level9": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    },
+    "/validation/level10": {
+      "get": {
+        "tags": ["challengers"],
+        "summary": "Chellengers JSON",
+        "description": "validation",
+        "responses": {
+          "200": {
+            "description": "List of approvals",
+            "content": {
+              "application/json": {}
+            }
+          },
+          "404": {
+            "description": "No user approval data found"
+          }
+        }
+      }
+    }
   },
   "components": {
     "schemas": {
