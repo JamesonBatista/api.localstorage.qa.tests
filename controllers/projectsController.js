@@ -75,7 +75,7 @@ export const updateProject = (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { name, description, startDate, endDate, members } = req.body;
+  const { name, description, startDate, endDate, members, leader } = req.body;
   const projects = getData("projects");
   const projectIndex = projects.findIndex(
     (p) => p.id === parseInt(req.params.id)
@@ -88,6 +88,7 @@ export const updateProject = (req, res) => {
   const project = projects[projectIndex];
 
   if (name) project.name = name;
+  if (leader) project.leader = leader;
   if (description) project.description = description;
   if (startDate) project.startDate = startDate;
   if (endDate) project.endDate = endDate;
