@@ -2,11 +2,11 @@
   "name": "api.localstorage.qa.tests",
   "version": "1.0.0",
   "description": "API criada para subir no seu localStorage, permitindo realizar cruds sem dificuldades, com alguns endpoints complexos e simples para testar sua validação, frequentemente pode usar o git pull para baixar novos métodos.",
-  "main": "index.js",
+  "main": "index.mjs",
   "type": "module",
   "scripts": {
     "test": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.mjs"
   },
   "repository": {
     "type": "git",
