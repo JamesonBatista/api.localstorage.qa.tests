@@ -7,8 +7,20 @@
     "test": "nodemon index.js",
     "start": "node index.js"
   },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "10"
+          }
+        }
+      ]
+    ]
+  },
   "engines": {
-    "node": "18.12.1"
+    "node": "10.x"
   },
   "repository": {
     "type": "git",
@@ -22,6 +34,10 @@
   },
   "homepage": "https://github.com/JamesonBatista/api.localstorage.qa.tests#readme",
   "dependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/node": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "body-parser": "^1.20.2",
     "express": "^4.21.1",
     "express-validator": "^6.12.2",
