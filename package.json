@@ -7,6 +7,9 @@
     "test": "nodemon index.js",
     "start": "node index.js"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JamesonBatista/api.localstorage.qa.tests.git"
