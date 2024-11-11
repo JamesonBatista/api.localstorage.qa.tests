@@ -1,6 +1,6 @@
-import express from 'express';
-import { param, body } from 'express-validator';
-import {
+const express = require('express');
+const { param, body } = require('express-validator');
+const {
   getProjects,
   getProjectById,
   createProject,
@@ -8,7 +8,7 @@ import {
   deleteProject,
   addMemberToProject,
   removeMemberFromProject
-} from '../controllers/projectsController.js';
+} = require('../controllers/projectsController.js');
 
 const router = express.Router();
 
@@ -65,4 +65,4 @@ router.delete(
   removeMemberFromProject
 );
 
-export default router;
+module.exports = router;

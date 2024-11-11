@@ -1,6 +1,6 @@
-import express from 'express';
-import { param, body } from 'express-validator';
-import {
+const express = require('express');
+const { param, body } = require('express-validator');
+const {
   getEvents,
   getEventById,
   createEvent,
@@ -8,7 +8,7 @@ import {
   deleteEvent,
   addParticipantToEvent,
   removeParticipantFromEvent,
-} from '../controllers/eventsController.js';
+} = require('../controllers/eventsController.js');
 
 const router = express.Router();
 
@@ -58,4 +58,4 @@ router.delete(
   removeParticipantFromEvent
 );
 
-export default router;
+module.exports = router;

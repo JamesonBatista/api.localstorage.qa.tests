@@ -1,13 +1,13 @@
-import saveData, { getData } from "../localStorage.js";
+const { saveData, getData } = require("../localStorage.js");
 
 // Controlador para listar todos os produtos
-export const getProducts = (req, res) => {
+const getProducts = (req, res) => {
   const products = getData("products");
   res.status(200).json(products);
 };
 
 // Controlador para buscar um produto por ID
-export const getProductById = (req, res) => {
+const getProductById = (req, res) => {
   const products = getData("products");
   const product = products.find((p) => p.id === parseInt(req.params.id));
 
@@ -19,7 +19,7 @@ export const getProductById = (req, res) => {
 };
 
 // Controlador para adicionar um novo produto
-export const createProduct = (req, res) => {
+const createProduct = (req, res) => {
   const { name, brand, price } = req.body;
 
   // Validação básica dos campos obrigatórios
@@ -44,7 +44,7 @@ export const createProduct = (req, res) => {
 };
 
 // Controlador para atualizar um produto por ID
-export const updateProduct = (req, res) => {
+const updateProduct = (req, res) => {
   const { name, brand, price } = req.body;
   const products = getData("products");
   const productIndex = products.findIndex(
@@ -66,7 +66,7 @@ export const updateProduct = (req, res) => {
 };
 
 // Controlador para remover um produto por ID
-export const deleteProduct = (req, res) => {
+const deleteProduct = (req, res) => {
   const products = getData("products");
   const newProducts = products.filter((p) => p.id !== parseInt(req.params.id));
 
@@ -76,4 +76,12 @@ export const deleteProduct = (req, res) => {
   } else {
     res.status(404).json({ message: "Product not found" });
   }
+};
+
+module.exports = {
+  getProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
 };

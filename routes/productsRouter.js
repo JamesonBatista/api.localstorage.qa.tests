@@ -1,6 +1,12 @@
-import express from "express";
+const express = require("express");
 const router = express.Router();
-import {getProducts, createProduct, updateProduct, deleteProduct, getProductById} from '../controllers/productsController.js'
+const {
+  getProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getProductById
+} = require("../controllers/productsController.js");
 
 // Rota para listar todos os produtos
 router.get("/", getProducts);
@@ -17,4 +23,4 @@ router.delete("/:id", deleteProduct);
 // Rota para buscar um produto por ID
 router.get("/:id", getProductById);
 
-export default router;
+module.exports = router;

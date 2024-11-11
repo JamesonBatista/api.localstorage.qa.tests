@@ -1,14 +1,14 @@
-import express from "express";
-import { body, param } from "express-validator";
+const express = require("express");
+const { body, param } = require("express-validator");
 
-import {
+const {
   getUserApproval,
   postUserApproval,
   approveUser,
   updateUserApproval,
   deleteUserApproval,
   approveUserByCpf,
-} from "../controllers/approvalController.js";
+} = require("../controllers/approvalController.js");
 
 const router = express.Router();
 
@@ -72,4 +72,4 @@ router.post(
   approveUserByCpf
 );
 
-export default router;
+module.exports = router;

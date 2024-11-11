@@ -1,14 +1,14 @@
-import saveData, { getData } from "../localStorage.js";
-import { validationResult } from "express-validator";
+const { saveData, getData } = require("../localStorage.js");
+const { validationResult } = require("express-validator");
 
 // Controller to get all projects
-export const getProjects = (req, res) => {
+const getProjects = (req, res) => {
   const projects = getData("projects");
   res.status(200).json(projects);
 };
 
 // Controller to get a project by ID
-export const getProjectById = (req, res) => {
+const getProjectById = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -25,7 +25,7 @@ export const getProjectById = (req, res) => {
 };
 
 // Controller to create a new project
-export const createProject = (req, res) => {
+const createProject = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -69,7 +69,7 @@ export const createProject = (req, res) => {
 };
 
 // Controller to update a project by ID
-export const updateProject = (req, res) => {
+const updateProject = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -103,7 +103,7 @@ export const updateProject = (req, res) => {
 };
 
 // Controller to delete a project by ID
-export const deleteProject = (req, res) => {
+const deleteProject = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -127,7 +127,7 @@ export const deleteProject = (req, res) => {
 };
 
 // Controller to add a member to a project
-export const addMemberToProject = (req, res) => {
+const addMemberToProject = (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -173,7 +173,7 @@ export const addMemberToProject = (req, res) => {
 };
 
 // Controller to remove a member from a project
-export const removeMemberFromProject = (req, res) => {
+const removeMemberFromProject = (req, res) => {
   const { projectId, memberId } = req.params;
 
   const projects = getData("projects");
@@ -204,4 +204,14 @@ export const removeMemberFromProject = (req, res) => {
     message: `Member ${removedMember} removed from project ${project.name}`,
     project,
   });
+};
+
+module.exports = {
+  getProjects,
+  getProjectById,
+  createProject,
+  updateProject,
+  deleteProject,
+  addMemberToProject,
+  removeMemberFromProject,
 };

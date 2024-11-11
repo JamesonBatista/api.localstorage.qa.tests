@@ -1,11 +1,11 @@
-import saveData, { getData } from "../localStorage.js";
+const { saveData, getData } = require("../localStorage.js");
 
-export const getUsers = (req, res) => {
+const getUsers = (req, res) => {
   const users = getData("users");
   res.status(200).json(users);
 };
 
-export const getUserById = (req, res) => {
+const getUserById = (req, res) => {
   const users = getData("users");
   const user = users.find((u) => u.id === parseInt(req.params.id));
 
@@ -16,7 +16,7 @@ export const getUserById = (req, res) => {
   }
 };
 
-export const createUser = (req, res) => {
+const createUser = (req, res) => {
   const users = getData("users");
   const newUser = { id: users.length + 1, ...req.body };
   users.push(newUser);
@@ -24,7 +24,7 @@ export const createUser = (req, res) => {
   res.status(201).json(newUser);
 };
 
-export const updateUser = (req, res) => {
+const updateUser = (req, res) => {
   const users = getData("users");
   const userIndex = users.findIndex((u) => u.id === parseInt(req.params.id));
 
@@ -37,7 +37,7 @@ export const updateUser = (req, res) => {
   }
 };
 
-export const deleteUser = (req, res) => {
+const deleteUser = (req, res) => {
   const users = getData("users");
   const newUsers = users.filter((u) => u.id !== parseInt(req.params.id));
 
@@ -49,3 +49,10 @@ export const deleteUser = (req, res) => {
   }
 };
 
+module.exports = {
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+};

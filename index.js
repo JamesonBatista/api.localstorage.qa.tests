@@ -1,21 +1,22 @@
-import express from "express";
-import swaggerUi from "swagger-ui-express";
-import document from "./swagger.json" assert { type: "json" };
-import { body, validationResult } from "express-validator";
-import "./config/init.js";
-// routers
-import usersRoutes from "./routes/users.js";
-import productsRoutes from "./routes/productsRouter.js";
-import projectsRoutes from "./routes/projects.js";
-import eventsRoutes from "./routes/events.js";
-import approvalRoutes from "./routes/approval.js";
+const express = require("express");
+const swaggerUi = require("swagger-ui-express");
+const document = require("./swagger.json");
+const { body, validationResult } = require("express-validator");
+require("./config/init.js");
 
-//
+// routers
+const usersRoutes = require("./routes/users.js");
+const productsRoutes = require("./routes/productsRouter.js");
+const projectsRoutes = require("./routes/projects.js");
+const eventsRoutes = require("./routes/events.js");
+const approvalRoutes = require("./routes/approval.js");
+
 const app = express();
 app.use(express.json());
 const PORT = 3000;
-import jwt from "jsonwebtoken";
-import { getData } from "./localStorage.js";
+
+const jwt = require("jsonwebtoken");
+const { getData } = require("./localStorage.js");
 
 // router users
 app.use("/users", usersRoutes);

@@ -1,15 +1,14 @@
-import saveData, { getData } from "../localStorage.js";
-import { validationResult } from "express-validator";
+const { saveData, getData } = require("../localStorage.js");
+const { validationResult } = require("express-validator");
 
 // Controller to get user approval status
-export const getUserApproval = (req, res) => {
+const getUserApproval = (req, res) => {
   const approvals = getData("approval");
 
   if (!approvals || approvals.length === 0) {
     return res.status(404).json({ message: "No user approval data found" });
   }
 
-  // Map the data to return only the user's fields, excluding the code
   const response = approvals.map((approval) => ({
     id: approval.user.id,
     name: approval.user.name,
@@ -22,7 +21,7 @@ export const getUserApproval = (req, res) => {
 };
 
 // Controller to post a new user approval request
-export const postUserApproval = (req, res) => {
+const postUserApproval = (req, res) => {
   const approvalsUsers = getData("approval");
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -48,7 +47,6 @@ export const postUserApproval = (req, res) => {
   approvals.push(newApproval);
   saveData("approval", approvals);
 
-  // Return user data without code
   const { code: hiddenCode, ...userResponse } = newApproval;
   res.status(201).json({
     id: newApproval.user.id,
@@ -70,7 +68,7 @@ const generateRandomCode = () => {
 };
 
 // Controller to approve a user
-export const approveUser = (req, res) => {
+const approveUser = (req, res) => {
   const { code } = req.body;
   let approvals = getData("approval") || [];
 
@@ -90,7 +88,9 @@ export const approveUser = (req, res) => {
     user: approvals[approvalIndex].user,
   });
 };
-export const updateUserApproval = (req, res) => {
+
+// Controller to update user approval
+const updateUserApproval = (req, res) => {
   const { id } = req.params;
   const { name, email, cpf } = req.body;
 
@@ -109,16 +109,14 @@ export const updateUserApproval = (req, res) => {
 
   saveData("approval", approvals);
 
-  res
-    .status(200)
-    .json({
-      message: "User updated successfully",
-      user: approvals[approvalIndex].user,
-    });
+  res.status(200).json({
+    message: "User updated successfully",
+    user: approvals[approvalIndex].user,
+  });
 };
 
 // Controller to delete user approval by ID
-export const deleteUserApproval = (req, res) => {
+const deleteUserApproval = (req, res) => {
   const { id } = req.params;
 
   let approvals = getData("approval") || [];
@@ -130,21 +128,20 @@ export const deleteUserApproval = (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  // Remove user from the array
   const deletedUser = approvals.splice(approvalIndex, 1);
   saveData("approval", approvals);
 
-  res
-    .status(200)
-    .json({ message: "User deleted successfully", user: deletedUser[0].user });
+  res.status(200).json({
+    message: "User deleted successfully",
+    user: deletedUser[0].user,
+  });
 };
 
 // Controller to approve user based on CPF
-export const approveUserByCpf = (req, res) => {
+const approveUserByCpf = (req, res) => {
   const { cpf } = req.body;
   let approvals = getData("approval") || [];
 
-  // Check if the user with the provided CPF exists and has a code
   const approval = approvals.find(
     (approval) => approval.user.cpf === cpf && approval.code
   );
@@ -155,7 +152,6 @@ export const approveUserByCpf = (req, res) => {
       .json({ message: "User not found or approval code missing" });
   }
 
-  // Update user status to APPROVED
   approval.user.status = "APPROVED";
   saveData("approval", approvals);
 
@@ -163,4 +159,13 @@ export const approveUserByCpf = (req, res) => {
     message: "User approved successfully",
     user: approval.user,
   });
+};
+
+module.exports = {
+  getUserApproval,
+  postUserApproval,
+  approveUser,
+  updateUserApproval,
+  deleteUserApproval,
+  approveUserByCpf,
 };

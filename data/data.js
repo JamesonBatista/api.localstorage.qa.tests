@@ -1,9 +1,9 @@
-export const users = [
+ const users = [
   { id: 1, name: "John", last_name: "Doe", email: "john.doe@example.com" },
   { id: 2, name: "Jane", last_name: "Doe", email: "jane.doe@example.com" },
 ];
 
-export const products = [
+ const products = [
   { id: 1, nome: "TV Smart 4K", marca: "Samsung", preco: 4500 },
   { id: 2, nome: "OLED 55' 4K", marca: "LG", preco: 6200 },
   { id: 3, nome: "QLED 8K", marca: "Sony", preco: 13000 },
@@ -26,7 +26,7 @@ export const products = [
   { id: 20, nome: "Samsung Gear VR", marca: "Samsung", preco: 1000 },
 ];
 
-export const projects = [
+ const projects = [
   {
     id: 1,
     name: "Website Redesign",
@@ -58,7 +58,7 @@ export const projects = [
   },
 ];
 
-export const events = [
+ const events = [
   {
     id: 1,
     name: "Tech Conference 2024",
@@ -98,7 +98,7 @@ export const events = [
   },
 ];
 
-export const approval = [
+ const approval = [
   {
     user: {
       id: 1,
@@ -121,7 +121,7 @@ export const approval = [
   },
 ];
 
-export const challengers = {
+ const challengers = {
   lv1: {
     username: "john_doe",
     age: 30,
@@ -1472,3 +1472,12 @@ export const challengers = {
     },
   },
 };
+
+module.exports ={
+  users,
+  products,
+  projects,
+  events,
+  approval,
+  challengers
+}

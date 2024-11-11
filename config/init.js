@@ -1,12 +1,7 @@
-import {
-  products,
-  users,
-  projects,
-  events,
-  approval,
-  challengers,
-} from "../data/data.js";
-import saveData from "../localStorage.js";
+const { products, users, projects, events, approval, challengers } = require("../data/data.js");
+const { saveData } = require("../localStorage.js");
+
+
 
 //
 saveData("users", users);
