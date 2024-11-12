@@ -11,7 +11,6 @@
   <h2>Menu</h2>
   <ul class="menu">
     <li ><a href="#user-endpoints">User Endpoints</a></li>
-    <li ><a href="#user-endpointsForm">User Endpoints Form</a></li>
     <li ><a href="#project-endpoints">Project Endpoints</a></li>
     <li ><a href="#product-endpoints">Product Endpoints</a></li>
     <li ><a href="#approval-endpoints">Approval Endpoints</a></li>
@@ -149,60 +148,6 @@
   "id": 1,
   "name": "John Doe",
   "email": "john.doe@example.com"
-}</code></pre>
-<p><strong>Response if user is not found:</strong></p>
-<pre><code>{
-  "message": "User not found"
-}</code></pre>
-
-<h3>3. Create User (Form Submission)</h3>
-<ul>
-  <li><strong>URL:</strong> <code>/users</code></li>
-  <li><strong>Method:</strong> <code>POST</code></li>
-  <li><strong>Description:</strong> Creates a new user using data submitted via a form with flexible fields.</li>
-</ul>
-<p><strong>Request Body (Form Data):</strong></p>
-<pre><code>
-name=John Doe&email=john.doe@example.com&age=30
-</code></pre>
-<p><strong>Example Response:</strong></p>
-<pre><code>{
-  "id": 3,
-  "name": "John Doe",
-  "email": "john.doe@example.com",
-  "age": 30
-}</code></pre>
-
-<h3>4. Update User (Form Submission)</h3>
-<ul>
-  <li><strong>URL:</strong> <code>/users/:id</code></li>
-  <li><strong>Method:</strong> <code>PUT</code></li>
-  <li><strong>Description:</strong> Updates an existing user using data submitted via a form with flexible fields.</li>
-</ul>
-<p><strong>Request Body (Form Data):</strong></p>
-<pre><code>
-name=John Doe&email=john.doe@newemail.com
-</code></pre>
-<p><strong>Example Response:</strong></p>
-<pre><code>{
-  "id": 1,
-  "name": "John Doe",
-  "email": "john.doe@newemail.com"
-}</code></pre>
-<p><strong>Response if user is not found:</strong></p>
-<pre><code>{
-  "message": "User not found"
-}</code></pre>
-
-<h3>5. Delete User</h3>
-<ul>
-  <li><strong>URL:</strong> <code>/users/:id</code></li>
-  <li><strong>Method:</strong> <code>DELETE</code></li>
-  <li><strong>Description:</strong> Deletes a user by ID.</li>
-</ul>
-<p><strong>Example Response:</strong> (if user is deleted successfully)</p>
-<pre><code>{
-  "message": "User deleted successfully"
 }</code></pre>
 <p><strong>Response if user is not found:</strong></p>
 <pre><code>{
@@ -728,7 +673,6 @@ name=John Doe&email=john.doe@newemail.com
 <!-- Examples of Use with Frameworks -->
 <h2 id="examples">Examples of Use with Frameworks</h2>
 
-
 <!-- Cypress Example -->
 <h3>Cypress Example</h3>
 
@@ -748,21 +692,6 @@ cy.request({
 cy.request({
   method: 'POST',
   url: 'https://api-qas-trainings.glitch.me/users',
-  body: {
-    name: 'John Doe',
-    email: 'john.doe@example.com'
-  }
-}).then((response) => {
-  expect(response.status).to.eq(201);
-});
-</code></pre>
-
-<pre><code class="language-javascript">
-// Cypress: Create User with Form
-cy.request({
-  method: 'POST',
-  url: 'https://api-qas-trainings.glitch.me/usersForm',
-  form: true,
   body: {
     name: 'John Doe',
     email: 'john.doe@example.com'
@@ -799,19 +728,6 @@ Response response = given()
 System.out.println(response.asString());
 </code></pre>
 
-<pre><code class="language-java">
-// RestAssured: Create User with Form
-Response response = given()
-  .contentType("application/x-www-form-urlencoded")
-  .formParam("name", "John Doe")
-  .formParam("email", "john.doe@example.com")
-  .when()
-  .post("https://api-qas-trainings.glitch.me/usersForm")
-  .then()
-  .statusCode(201)
-  .extract().response();
-System.out.println(response.asString());
-</code></pre>
 
 <!-- Robot Framework Example -->
 <h3>Robot Framework Example</h3>
@@ -819,26 +735,21 @@ System.out.println(response.asString());
 *** Settings ***
 Library    RequestsLibrary
 
-*** Variables ***
-${BASE_URL}    https://api-qas-trainings.glitch.me
+**_ Variables _**
+${BASE_URL} https://api-qas-trainings.glitch.me
 
-*** Test Cases ***
+**_ Test Cases _**
 Get All Users
-    [Documentation]    Get a list of all users
-    ${response}=    GET    ${BASE_URL}/users
-    Should Be Equal As Numbers    ${response.status_code}    200
+[Documentation] Get a list of all users
+${response}= GET ${BASE_URL}/users
+Should Be Equal As Numbers ${response.status_code} 200
 
 Create User without Form (JSON Body)
-    [Documentation]    Create a new user with JSON body
-    ${data}=    Create Dictionary    name=John Doe    email=john.doe@example.com
+[Documentation] Create a new user with JSON body
+${data}=    Create Dictionary    name=John Doe    email=john.doe@example.com
     ${response}=    POST    ${BASE_URL}/users    json=${data}
-    Should Be Equal As Numbers    ${response.status_code}    201
+Should Be Equal As Numbers ${response.status_code} 201
 
-Create User with Form
-    [Documentation]    Create a new user with form data
-    ${data}=    Create Dictionary    name=John Doe    email=john.doe@example.com
-    ${response}=    POST    ${BASE_URL}/usersForm    data=${data}
-    Should Be Equal As Numbers    ${response.status_code}    201
 </code></pre>
 
 <!-- Postman Example -->
@@ -862,19 +773,6 @@ Create User with Form
     "email": "john.doe@example.com"
   }</code></pre>
 </ul>
-
-<p><strong>Create User with Form</strong></p>
-<ul>
-  <li><strong>Method:</strong> POST</li>
-  <li><strong>URL:</strong> <code>https://api-qas-trainings.glitch.me/usersForm</code></li>
-  <li><strong>Body:</strong> x-www-form-urlencoded</li>
-  <li><strong>Key-Value Pairs:</strong></li>
-  <ul>
-    <li>name: John Doe</li>
-    <li>email: john.doe@example.com</li>
-  </ul>
-</ul>
-
 
 <!-- projects -->
 <hr>
