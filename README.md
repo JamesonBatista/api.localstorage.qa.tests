@@ -4,7 +4,8 @@
 </head>
 <body>
   <h1>API Documentation</h1>
-  <p class="pbase"><strong>Base URL:</strong>  <a href="https://api-qas-trainings.glitch.me/" class="base">https://api-qas-trainings.glitch.me/</a></p>
+  <p class="pbase"><strong>Base URL:</strong> <h1>
+   <a href="https://api-qas-trainings.glitch.me/" class="base">https://api-qas-trainings.glitch.me/</a></h1></p>
   <p class="abase">This API provides endpoints for managing various resources.</p>
 
   <h2>Menu</h2>
