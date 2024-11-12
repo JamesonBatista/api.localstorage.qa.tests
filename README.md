@@ -728,8 +728,10 @@ name=John Doe&email=john.doe@newemail.com
 <!-- Examples of Use with Frameworks -->
 <h2 id="examples">Examples of Use with Frameworks</h2>
 
+
 <!-- Cypress Example -->
 <h3>Cypress Example</h3>
+
 <pre><code class="language-javascript">
 // Cypress: Get All Users
 cy.request({
@@ -742,10 +744,24 @@ cy.request({
 </code></pre>
 
 <pre><code class="language-javascript">
-// Cypress: Create User
+// Cypress: Create User without Form (JSON body)
 cy.request({
   method: 'POST',
   url: 'https://api-qas-trainings.glitch.me/users',
+  body: {
+    name: 'John Doe',
+    email: 'john.doe@example.com'
+  }
+}).then((response) => {
+  expect(response.status).to.eq(201);
+});
+</code></pre>
+
+<pre><code class="language-javascript">
+// Cypress: Create User with Form
+cy.request({
+  method: 'POST',
+  url: 'https://api-qas-trainings.glitch.me/usersForm',
   form: true,
   body: {
     name: 'John Doe',
@@ -758,6 +774,7 @@ cy.request({
 
 <!-- Java with RestAssured Example -->
 <h3>Java with RestAssured Example</h3>
+
 <pre><code class="language-java">
 // RestAssured: Get All Users
 Response response = given()
@@ -770,13 +787,26 @@ System.out.println(response.asString());
 </code></pre>
 
 <pre><code class="language-java">
-// RestAssured: Create User
+// RestAssured: Create User without Form (JSON body)
+Response response = given()
+  .contentType("application/json")
+  .body("{ \"name\": \"John Doe\", \"email\": \"john.doe@example.com\" }")
+  .when()
+  .post("https://api-qas-trainings.glitch.me/users")
+  .then()
+  .statusCode(201)
+  .extract().response();
+System.out.println(response.asString());
+</code></pre>
+
+<pre><code class="language-java">
+// RestAssured: Create User with Form
 Response response = given()
   .contentType("application/x-www-form-urlencoded")
   .formParam("name", "John Doe")
   .formParam("email", "john.doe@example.com")
   .when()
-  .post("https://api-qas-trainings.glitch.me/users")
+  .post("https://api-qas-trainings.glitch.me/usersForm")
   .then()
   .statusCode(201)
   .extract().response();
@@ -789,20 +819,26 @@ System.out.println(response.asString());
 *** Settings ***
 Library    RequestsLibrary
 
-**_ Variables _**
-${BASE_URL} https://api-qas-trainings.glitch.me
+*** Variables ***
+${BASE_URL}    https://api-qas-trainings.glitch.me
 
-**_ Test Cases _**
+*** Test Cases ***
 Get All Users
-[Documentation] Get a list of all users
-${response}= GET ${BASE_URL}/users
-Should Be Equal As Numbers ${response.status_code} 200
+    [Documentation]    Get a list of all users
+    ${response}=    GET    ${BASE_URL}/users
+    Should Be Equal As Numbers    ${response.status_code}    200
 
-Create User
-[Documentation] Create a new user
-${data}=    Create Dictionary    name=John Doe    email=john.doe@example.com
-    ${response}=    POST    ${BASE_URL}/users    data=${data}
-Should Be Equal As Numbers ${response.status_code} 201
+Create User without Form (JSON Body)
+    [Documentation]    Create a new user with JSON body
+    ${data}=    Create Dictionary    name=John Doe    email=john.doe@example.com
+    ${response}=    POST    ${BASE_URL}/users    json=${data}
+    Should Be Equal As Numbers    ${response.status_code}    201
+
+Create User with Form
+    [Documentation]    Create a new user with form data
+    ${data}=    Create Dictionary    name=John Doe    email=john.doe@example.com
+    ${response}=    POST    ${BASE_URL}/usersForm    data=${data}
+    Should Be Equal As Numbers    ${response.status_code}    201
 </code></pre>
 
 <!-- Postman Example -->
@@ -815,10 +851,22 @@ Should Be Equal As Numbers ${response.status_code} 201
   <li><strong>URL:</strong> <code>https://api-qas-trainings.glitch.me/users</code></li>
 </ul>
 
-<p><strong>Create User</strong></p>
+<p><strong>Create User without Form</strong></p>
 <ul>
   <li><strong>Method:</strong> POST</li>
   <li><strong>URL:</strong> <code>https://api-qas-trainings.glitch.me/users</code></li>
+  <li><strong>Body:</strong> raw JSON</li>
+  <li><strong>JSON Payload:</strong></li>
+  <pre><code>{
+    "name": "John Doe",
+    "email": "john.doe@example.com"
+  }</code></pre>
+</ul>
+
+<p><strong>Create User with Form</strong></p>
+<ul>
+  <li><strong>Method:</strong> POST</li>
+  <li><strong>URL:</strong> <code>https://api-qas-trainings.glitch.me/usersForm</code></li>
   <li><strong>Body:</strong> x-www-form-urlencoded</li>
   <li><strong>Key-Value Pairs:</strong></li>
   <ul>
@@ -826,6 +874,7 @@ Should Be Equal As Numbers ${response.status_code} 201
     <li>email: john.doe@example.com</li>
   </ul>
 </ul>
+
 
 <!-- projects -->
 <hr>
