@@ -1,0 +1,157 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #fff;
+	background-color: #121212;
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+
+}
+
+h1 {
+	font-size: 3em;
+	color: #e3b341;
+	letter-spacing: 2px;
+	margin-bottom: 10px;
+	text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8)
+}
+
+p {
+	font-size: 1.1em;
+}
+
+h2 {
+	font-size: 2em;
+	color: #e3b341;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.menu {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.menu li {
+	position: relative;
+	overflow: hidden;
+	font-size: 1.5em;
+}
+
+.menu li a {
+	color: #e3b341;
+	text-decoration: none;
+	padding: 10px 20px;
+	position: relative;
+	z-index: 1;
+	transition: color 0.3s ease;
+}
+
+.menu li a::before,
+.menu li a::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 0;
+	height: 100%;
+	background: rgba(227, 179, 65, 0.3);
+	z-index: -1;
+	transition: width 0.5s ease, left 0.5s ease;
+}
+
+.menu li a::before {
+	transform: skewX(-20deg);
+}
+
+.menu li a::after {
+	transform: skewX(20deg);
+}
+
+.menu li a:hover::before {
+	width: 200%;
+	left: 0;
+}
+
+.menu li a:hover::after {
+	width: 200%;
+	left: 0;
+}
+
+.menu li a:hover {
+	color: #000;
+}
+
+
+.pbase {
+	font-size: 1.1em;
+	margin-bottom: 30px;
+}
+
+.base {
+	font-weight: bold;
+	color: #e3b341;
+	text-decoration: none;
+	position: relative;
+	background: linear-gradient(90deg, #e3b341, #e39534, #e3b341);
+	background-size: 400% 400%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: glow 3s ease-in-out infinite, gradientMove 6s ease-in-out infinite;
+}
+
+.base::before {
+	content: "";
+	position: absolute;
+	top: -2px;
+	left: -2px;
+	right: -2px;
+	bottom: -2px;
+	border-radius: 5px;
+	background: linear-gradient(45deg, rgba(227, 179, 65, 0.5), rgba(227, 227, 65, 0.5));
+	z-index: -1;
+	filter: blur(4px);
+	animation: borderGlow 3s linear infinite;
+}
+
+@keyframes glow {
+
+	0%,
+	100% {
+		text-shadow: 0 0 10px #e3b341, 0 0 20px #e39534, 0 0 30px #e3b341, 0 0 40px #e39534;
+	}
+
+	50% {
+		text-shadow: 0 0 15px #e3b341, 0 0 30px #e3b341, 0 0 45px #e39534, 0 0 60px #e3b341;
+	}
+}
+
+@keyframes gradientMove {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	100% {
+		background-position: 100% 50%;
+	}
+}
+
+@keyframes borderGlow {
+
+	0%,
+	100% {
+		opacity: 0.3;
+	}
+
+	50% {
+		opacity: 0.8;
+	}
+}
