@@ -1298,6 +1298,129 @@ Should Be Equal As Numbers ${response.status_code} 201
 <pre><code>{
   "message": "User not found or approval code missing"
 }</code></pre>
+<!-- customers -->
+<h2 id="customer-endpoints">Customer Endpoints</h2>
+
+<h3>1. Get All Customers</h3>
+<ul>
+  <li><strong>URL:</strong> <code>/customers</code></li>
+  <li><strong>Method:</strong> <code>GET</code></li>
+  <li><strong>Description:</strong> Returns a list of all registered customers.</li>
+</ul>
+<p><strong>Example Response:</strong></p>
+<pre><code>[
+  {
+    "id": 1,
+    "name": "Acme Corp",
+    "email": "contact@acmecorp.com",
+    "status": "ACTIVE"
+  },
+  {
+    "id": 2,
+    "name": "Tech Solutions",
+    "email": "info@techsolutions.com",
+    "status": "ACTIVE"
+  }
+]</code></pre>
+
+<h3>2. Get Customer by ID</h3>
+<ul>
+  <li><strong>URL:</strong> <code>/customers/:id</code></li>
+  <li><strong>Method:</strong> <code>GET</code></li>
+  <li><strong>Description:</strong> Returns the details of a specific customer by ID.</li>
+</ul>
+<p><strong>Example Response:</strong> (if customer is found)</p>
+<pre><code>{
+  "id": 1,
+  "name": "Acme Corp",
+  "email": "contact@acmecorp.com",
+  "status": "ACTIVE"
+}</code></pre>
+<p><strong>Response if customer is not found:</strong></p>
+<pre><code>{
+  "message": "Customer not found"
+}</code></pre>
+
+<h3>3. Create Customer</h3>
+<ul>
+  <li><strong>URL:</strong> <code>/customers</code></li>
+  <li><strong>Method:</strong> <code>POST</code></li>
+  <li><strong>Description:</strong> Creates a new customer with the provided data.</li>
+</ul>
+<p><strong>Request Body:</strong></p>
+<pre><code>{
+  "name": "New Enterprise",
+  "email": "info@newenterprise.com",
+  "phone": "123-456-7890",
+  "status": "ACTIVE"
+}</code></pre>
+<p><strong>Example Response:</strong></p>
+<pre><code>{
+  "id": 3,
+  "name": "New Enterprise",
+  "email": "info@newenterprise.com",
+  "phone": "123-456-7890",
+  "status": "ACTIVE"
+}</code></pre>
+
+<h3>4. Update Customer</h3>
+<ul>
+  <li><strong>URL:</strong> <code>/customers/:id</code></li>
+  <li><strong>Method:</strong> <code>PUT</code></li>
+  <li><strong>Description:</strong> Updates an existing customer with the provided data. Only fields provided in the request will be updated.</li>
+</ul>
+<p><strong>Request Body:</strong></p>
+<pre><code>{
+  "name": "Updated Corp",
+  "email": "contact@updatedcorp.com"
+}</code></pre>
+<p><strong>Example Response:</strong></p>
+<pre><code>{
+  "id": 1,
+  "name": "Updated Corp",
+  "email": "contact@updatedcorp.com",
+  "status": "ACTIVE"
+}</code></pre>
+<p><strong>Response if customer is not found:</strong></p>
+<pre><code>{
+  "message": "Customer not found"
+}</code></pre>
+
+<h3>5. Delete Customer</h3>
+<ul>
+  <li><strong>URL:</strong> <code>/customers/:id</code></li>
+  <li><strong>Method:</strong> <code>DELETE</code></li>
+  <li><strong>Description:</strong> Deletes a customer by ID.</li>
+</ul>
+<p><strong>Example Response:</strong> (if customer is deleted successfully)</p>
+<pre><code>{
+  "message": "Customer deleted successfully"
+}</code></pre>
+<p><strong>Response if customer is not found:</strong></p>
+<pre><code>{
+  "message": "Customer not found"
+}</code></pre>
+
+<h3>6. Disable Customer</h3>
+<ul>
+  <li><strong>URL:</strong> <code>/customers/:id/disable</code></li>
+  <li><strong>Method:</strong> <code>PATCH</code></li>
+  <li><strong>Description:</strong> Disables a customer by setting their status to "INACTIVE".</li>
+</ul>
+<p><strong>Example Response:</strong></p>
+<pre><code>{
+  "message": "Customer disabled successfully",
+  "customer": {
+    "id": 1,
+    "name": "Acme Corp",
+    "email": "contact@acmecorp.com",
+    "status": "INACTIVE"
+  }
+}</code></pre>
+<p><strong>Response if customer is not found:</strong></p>
+<pre><code>{
+  "message": "Customer not found"
+}</code></pre>
 
 <!-- Examples of Use for Approval Endpoints -->
 <h2 id="approval-examples">Examples of Use for Approval Endpoints</h2>
