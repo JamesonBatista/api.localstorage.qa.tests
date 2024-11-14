@@ -15,7 +15,9 @@
     <li ><a href="#product-endpoints">Product Endpoints</a></li>
     <li ><a href="#approval-endpoints">Approval Endpoints</a></li>
     <li ><a href="#event-endpoints">Event Endpoints</a></li>
-	<li ><a href="#challenger-endpoints">Challenger Endpoints</a></li>
+    <li ><a href="#challenger-endpoints">Challenger Endpoints</a></li>
+   <li ><a href="#examples-of-use-with-frameworks">Examples of Use with Frameworks</a></li>
+	  
   </ul>
 
   <hr>
