@@ -4,13 +4,15 @@
 </head>
 <body>
   <h1>API Documentation</h1>
-  <h3>Automation framework recommendation</h3>
-  <a href="https://www.npmjs.com/package/cypress-crud" target="_blank" >NPM cypress-crud</a>
+  <h3>Automation framework recommendation:</h3>
+ 
   <br>
+    <ul class="menu">
+    <li><a href="https://www.npmjs.com/package/cypress-crud" target="_blank" >NPM cypress-crud</a></li>
+    <li ><a href="https://jamesonbatista.github.io/doc.cypress.crud/index.html" target="_blank" >Documentation cypress-crud</a></li>
+  </ul>
   <br>
-  <a href="https://jamesonbatista.github.io/doc.cypress.crud/index.html" target="_blank" >Documentation cypress-crud</a>
-  <br>
-  <br>
+
 
   <p class="pbase"><h1>
    <a href="https://api-qas-trainings.glitch.me/" target="_blank"  class="base" style="color: #e3b241">https://api-qas-trainings.glitch.me/</a></h1></p>
