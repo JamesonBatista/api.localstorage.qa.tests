@@ -8,13 +8,14 @@
    <a href="https://api-qas-trainings.glitch.me/" class="base" style="color: #e3b241">https://api-qas-trainings.glitch.me/</a></h1></p>
   <p class="abase">This API provides endpoints for managing various resources.</p>
 
-  <h2>Menu</h2>
+  <h3>Menu</h3>
   <ul class="menu">
     <li ><a href="#user-endpoints">User Endpoints</a></li>
     <li ><a href="#project-endpoints">Project Endpoints</a></li>
     <li ><a href="#product-endpoints">Product Endpoints</a></li>
     <li ><a href="#approval-endpoints">Approval Endpoints</a></li>
     <li ><a href="#event-endpoints">Event Endpoints</a></li>
+    <li ><a href="#market-endpoint">Market Endpoints</a></li>
     <li ><a href="#challenger-endpoints">Challenger Endpoints</a></li>
    <li ><a href="#examples-of-use-with-frameworks">Examples of Use with Frameworks</a></li>
 	  
@@ -593,6 +594,149 @@
   <p><strong>Example Response:</strong></p>
   <pre><code>{
   "message": "Participant John Doe removed from event Tech Conference"
+}</code></pre>
+
+<!-- Market -->
+  <h2 id="market-endpoint">Market Endpoints</h2>
+  <ul>
+    <li><a href="#get-all-markets">Get All Markets</a></li>
+    <li><a href="#get-market-by-id">Get Market by ID</a></li>
+    <li><a href="#create-market">Create Market</a></li>
+    <li><a href="#update-market">Update Market</a></li>
+    <li><a href="#delete-market">Delete Market</a></li>
+    <li><a href="#add-product">Add Product to Market</a></li>
+    <li><a href="#delete-product">Delete Product from Market</a></li>
+  </ul>
+
+  <h2 id="get-all-markets">1. Get All Markets</h2>
+  <ul>
+    <li><strong>URL:</strong> <code>/markets</code></li>
+    <li><strong>Method:</strong> <code>GET</code></li>
+    <li><strong>Description:</strong> Retrieves a list of all markets.</li>
+  </ul>
+  <p><strong>Example Response:</strong></p>
+  <pre><code>[
+  {
+    "id": 1,
+    "name": "Mercantil LTDA",
+    "cnpj": "31547984315349",
+    "address": "Avenida das Oliveiras",
+    "city": "São Paulo",
+    "state": "São Paulo",
+    "products": [
+      { "drinks": [{ "id": 1, "name": "Heinikein", "value": 11 }] },
+      { "meats": [{ "id": 1, "name": "Chicken", "value": 15 }] },
+      { "vegetables": [{ "id": 1, "name": "Tomato", "value": 5 }] }
+    ]
+  }
+]</code></pre>
+
+  <h2 id="get-market-by-id">2. Get Market by ID</h2>
+  <ul>
+    <li><strong>URL:</strong> <code>/markets/:id</code></li>
+    <li><strong>Method:</strong> <code>GET</code></li>
+    <li><strong>Description:</strong> Retrieves the details of a specific market by its ID.</li>
+  </ul>
+  <p><strong>Example Response:</strong></p>
+  <pre><code>{
+  "id": 1,
+  "name": "Mercantil LTDA",
+  "cnpj": "31547984315349",
+  "address": "Avenida das Oliveiras",
+  "city": "São Paulo",
+  "state": "São Paulo",
+  "products": [
+    { "drinks": [{ "id": 1, "name": "Heinikein", "value": 11 }] },
+    { "meats": [{ "id": 1, "name": "Chicken", "value": 15 }] },
+    { "vegetables": [{ "id": 1, "name": "Tomato", "value": 5 }] }
+  ]
+}</code></pre>
+
+  <h2 id="create-market">3. Create Market</h2>
+  <ul>
+    <li><strong>URL:</strong> <code>/markets</code></li>
+    <li><strong>Method:</strong> <code>POST</code></li>
+    <li><strong>Description:</strong> Creates a new market with the provided data.</li>
+  </ul>
+  <p><strong>Request Body:</strong></p>
+  <pre><code>{
+  "name": "Supermercado ABC",
+  "cnpj": "12345678901234",
+  "address": "Rua Exemplo, 123",
+  "city": "São Paulo",
+  "state": "SP",
+  "products": []
+}</code></pre>
+  <p><strong>Example Response:</strong></p>
+  <pre><code>{
+  "id": 2,
+  "name": "Supermercado ABC",
+  "cnpj": "12345678901234",
+  "address": "Rua Exemplo, 123",
+  "city": "São Paulo",
+  "state": "SP",
+  "products": []
+}</code></pre>
+
+  <h2 id="update-market">4. Update Market</h2>
+  <ul>
+    <li><strong>URL:</strong> <code>/markets/:id</code></li>
+    <li><strong>Method:</strong> <code>PUT</code></li>
+    <li><strong>Description:</strong> Updates the details of an existing market.</li>
+  </ul>
+  <p><strong>Request Body:</strong></p>
+  <pre><code>{
+  "name": "Mercantil Atualizado LTDA",
+  "address": "Rua Nova, 456"
+}</code></pre>
+  <p><strong>Example Response:</strong></p>
+  <pre><code>{
+  "id": 1,
+  "name": "Mercantil Atualizado LTDA",
+  "cnpj": "31547984315349",
+  "address": "Rua Nova, 456",
+  "city": "São Paulo",
+  "state": "São Paulo",
+  "products": [...]
+}</code></pre>
+
+  <h2 id="delete-market">5. Delete Market</h2>
+  <ul>
+    <li><strong>URL:</strong> <code>/markets/:id</code></li>
+    <li><strong>Method:</strong> <code>DELETE</code></li>
+    <li><strong>Description:</strong> Deletes a market by its ID.</li>
+  </ul>
+  <p><strong>Example Response:</strong></p>
+  <pre><code>{
+  "message": "Market deleted successfully"
+}</code></pre>
+
+  <h2 id="add-product">6. Add Product to Market</h2>
+  <ul>
+    <li><strong>URL:</strong> <code>/markets/:id/products</code></li>
+    <li><strong>Method:</strong> <code>POST</code></li>
+    <li><strong>Description:</strong> Adds a product to a specific market in a category.</li>
+  </ul>
+  <p><strong>Request Body:</strong></p>
+  <pre><code>{
+  "category": "drinks",
+  "name": "Coca-Cola",
+  "value": 10
+}</code></pre>
+  <p><strong>Example Response:</strong></p>
+  <pre><code>{
+  "message": "Product added successfully"
+}</code></pre>
+
+  <h2 id="delete-product">7. Delete Product from Market</h2>
+  <ul>
+    <li><strong>URL:</strong> <code>/markets/:id/products/:category/:productId</code></li>
+    <li><strong>Method:</strong> <code>DELETE</code></li>
+    <li><strong>Description:</strong> Deletes a product from a specific market in a category by its ID.</li>
+  </ul>
+  <p><strong>Example Response:</strong></p>
+  <pre><code>{
+  "message": "Product deleted successfully"
 }</code></pre>
 
   <!-- Challenger Endpoints -->
