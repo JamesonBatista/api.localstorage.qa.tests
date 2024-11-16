@@ -12,7 +12,7 @@
   <br>
   <br>
 
-  <p class="pbase"><strong>Base URL:</strong> <h1>
+  <p class="pbase"><h1>
    <a href="https://api-qas-trainings.glitch.me/" target="_blank"  class="base" style="color: #e3b241">https://api-qas-trainings.glitch.me/</a></h1></p>
   <p class="abase">This API provides endpoints for managing various resources.</p>
 
