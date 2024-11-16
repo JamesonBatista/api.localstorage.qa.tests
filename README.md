@@ -5,15 +5,15 @@
 <body>
   <h1>API Documentation</h1>
   <h3>Automation framework recommendation</h3>
-  <a href="https://www.npmjs.com/package/cypress-crud" target="_blank">NPM cypress-crud</a>
+  <a href="https://www.npmjs.com/package/cypress-crud" target="_blank" >NPM cypress-crud</a>
   <br>
   <br>
-  <a href="https://jamesonbatista.github.io/doc.cypress.crud/index.html" target="_blank">Documentation cypress-crud</a>
+  <a href="https://jamesonbatista.github.io/doc.cypress.crud/index.html" target="_blank" >Documentation cypress-crud</a>
   <br>
   <br>
 
   <p class="pbase"><strong>Base URL:</strong> <h1>
-   <a href="https://api-qas-trainings.glitch.me/" target="_blank" class="base" style="color: #e3b241">https://api-qas-trainings.glitch.me/</a></h1></p>
+   <a href="https://api-qas-trainings.glitch.me/" target="_blank"  class="base" style="color: #e3b241">https://api-qas-trainings.glitch.me/</a></h1></p>
   <p class="abase">This API provides endpoints for managing various resources.</p>
 
   <h3>Menu</h3>
