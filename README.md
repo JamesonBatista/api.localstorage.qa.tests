@@ -20,6 +20,7 @@
 
   <h3>Menu</h3>
   <ul class="menu">
+    <li ><a href="#auth-endpoints">Auth Endpoints</a></li>
     <li ><a href="#user-endpoints">User Endpoints</a></li>
     <li ><a href="#project-endpoints">Project Endpoints</a></li>
     <li ><a href="#product-endpoints">Product Endpoints</a></li>
@@ -32,6 +33,49 @@
   </ul>
 
   <hr>
+<!-- Auth Endpoints -->
+<h2 id="auth-endpoints">Auth Endpoints</h2>
+
+<h3>1. Generate Access Token</h3>
+<ul>
+  <li><strong>URL:</strong> <code>/auth/token</code></li>
+  <li><strong>Method:</strong> <code>POST</code></li>
+  <li><strong>Description:</strong> Generates an access token for authentication purposes.</li>
+</ul>
+<p><strong>Request Body:</strong></p>
+<pre><code>{
+  "username": "admin",
+  "password": "password123"
+}</code></pre>
+<p><strong>Example Response:</strong></p>
+<pre><code>{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "expires_in": "1h"
+}</code></pre>
+
+<h3>2. Verify Access Token</h3>
+<ul>
+  <li><strong>URL:</strong> <code>/auth/verify</code></li>
+  <li><strong>Method:</strong> <code>GET</code></li>
+  <li><strong>Description:</strong> Verifies if the provided access token is valid.</li>
+</ul>
+<p><strong>Request Headers:</strong></p>
+<ul>
+  <li><strong>Authorization:</strong> <code>Bearer &lt;access_token&gt;</code></li>
+</ul>
+<p><strong>Example Response (Valid Token):</strong></p>
+<pre><code>{
+  "message": "Token is valid",
+  "decoded": {
+    "username": "admin",
+    "iat": 1681234567,
+    "exp": 1681238167
+  }
+}</code></pre>
+<p><strong>Example Response (Invalid or Expired Token):</strong></p>
+<pre><code>{
+  "message": "Invalid or expired token"
+}</code></pre>
 
   <!-- User Endpoints -->
   <h2 id="user-endpoints">User Endpoints</h2>
